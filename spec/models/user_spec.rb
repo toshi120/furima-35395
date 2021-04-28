@@ -10,8 +10,8 @@ RSpec.describe User, type: :model do
       it '全ての項目が存在すれば登録できる' do
         expect(@user).to be_valid
       end
-      
-      it 'パスワードが6文字以上であれば登録できる' do 
+
+      it 'パスワードが6文字以上であれば登録できる' do
         @user.password = 'aaa111'
         @user.password_confirmation = 'aaa111'
         expect(@user).to be_valid
@@ -57,7 +57,7 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Family name kana can't be blank")
       end
       it 'first_name_kanaが空では登録できない' do
-        @user.first_name_kana = ""
+        @user.first_name_kana = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("First name kana can't be blank")
       end
@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
       it 'emailに@が含まれていないと登録できない' do
         @user.email = 'aaa.aaa.com'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
       it '重複したメールアドレスでは登録できない' do
         another_user = FactoryBot.build(:user)
@@ -77,13 +77,13 @@ RSpec.describe User, type: :model do
         another_user.save
         @user.email = 'aaa@aaa.com'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email has already been taken")
+        expect(@user.errors.full_messages).to include('Email has already been taken')
       end
       it '5文字以下のパスワードでは登録できない' do
         @user.password = 'aaaa1'
         @user.password_confirmation = 'aaaa1'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
       it 'パスワードは確認用を含めて二回入力しないと登録できない' do
         @user.password_confirmation = ''
@@ -96,38 +96,37 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'family nameが全角でなければ登録できない' do
-        @user.family_name = "Suga"
+        @user.family_name = 'Suga'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Family name is invalid")
+        expect(@user.errors.full_messages).to include('Family name is invalid')
       end
       it 'first nameが全角でなければ登録できない' do
-        @user.first_name = "Yoshihide"
+        @user.first_name = 'Yoshihide'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid")
+        expect(@user.errors.full_messages).to include('First name is invalid')
       end
       it 'family_name_kanaがカタカナでなければ登録できない' do
-        @user.family_name_kana = "菅"
+        @user.family_name_kana = '菅'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Family name kana is invalid")
+        expect(@user.errors.full_messages).to include('Family name kana is invalid')
       end
       it 'first_name_kanaがカタカナでなければ登録できない' do
-        @user.first_name_kana = "義偉"
+        @user.first_name_kana = '義偉'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana is invalid")
-      end  
+        expect(@user.errors.full_messages).to include('First name kana is invalid')
+      end
       it 'passwordが数字のみでは登録されない' do
-        @user.password = "000000"
-        @user.password_confirmation = "000000"
+        @user.password = '000000'
+        @user.password_confirmation = '000000'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'passwordが英語のみでは登録されない' do
-        @user.password = "aaaaaa"
-        @user.password_confirmation = "aaaaaa"
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
     end
   end
 end
-
