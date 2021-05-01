@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belings_to :item
+  belongs_to :item
   has_one    :address
 
 end
